@@ -1,0 +1,43 @@
+jenkins:
+  systemMessage: "Managed with JCASC"
+  numExecutors: 4
+  scmCheckoutRetryCount: 2
+  mode: NORMAL
+  quietPeriod: 5
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "mendyb"
+          password: "secret"
+  authorizationStrategy: loggedInUsersCanDoAnything
+
+  clouds:
+    - docker:
+        name: "docker"
+        dockerApi:
+          dockerHost:
+            uri: "unix:///var/run/docker.sock"
+
+security:
+  remotingCLI:
+    enabled: false
+
+unclassified:
+  artifactorybuilder:
+    useCredentialsPlugin: true
+    artifactoryServers:
+      - serverId: artifactory
+        artifactoryUrl: http://localhost:8081/artifactory/
+        deployerCredentialsConfig:
+          credentialsId: "artifactory"
+        resolverCredentialsConfig:
+          username: admin
+          password: password          
+  location:
+    url: http://localhost:8080/
+  simple-theme-plugin:
+    elements:
+      - cssUrl:
+          url: "https://jenkins-contrib-themes.github.io/jenkins-neo-theme/dist/neo-light.css"
