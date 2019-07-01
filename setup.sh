@@ -19,8 +19,11 @@ sudo apt-get update
 sudo apt-get install docker-ce -y
 
 sudo usermod -aG docker ubuntu
+sudo usermod -aG docker jenkins
 
 sudo mkdir -p /data/docker/jenkins/jenkins_home
 sudo chown -R 1000 /data/docker/jenkins/jenkins_home
 sudo mkdir -p /data/docker/artifactory/
 sudo chown -R 1030:1030 /data/docker/artifactory/
+
+# need to logout/in to get the docker group 

@@ -2,3 +2,11 @@ git
 blueocean
 configuration-as-code
 configuration-as-code-support
+artifactory
+docker-plugin
+workflow-cps
+aws-credentials
+junit
+simple-theme-plugin
+matrix-project
+configuration-as-code-support

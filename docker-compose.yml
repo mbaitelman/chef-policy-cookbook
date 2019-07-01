@@ -12,6 +12,7 @@ services:
             - '8080:8080'
             - '50000:50000'
         restart: always
+        user: root
         # image: 'jenkins/jenkins:latest'
         # sudo mkdir -p /data/docker/jenkins/jenkins_home
         # sudo chown -R 1000 /data/docker/jenkins/jenkins_home

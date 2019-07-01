@@ -9,8 +9,8 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: "mendyb"
-          password: "secret"
+        - id: "admin"
+          password: "password"
   authorizationStrategy: loggedInUsersCanDoAnything
 
   clouds:
@@ -20,9 +20,20 @@ jenkins:
           dockerHost:
             uri: "unix:///var/run/docker.sock"
 
-security:
-  remotingCLI:
-    enabled: false
+# security:
+#   remotingCLI:
+#     enabled: false
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "artifactory"
+              username: "admin"
+              password: "password"
+              description: "Username/Password Credentials for Artifactory"
 
 unclassified:
   artifactorybuilder:
@@ -31,10 +42,7 @@ unclassified:
       - serverId: artifactory
         artifactoryUrl: http://localhost:8081/artifactory/
         deployerCredentialsConfig:
-          credentialsId: "artifactory"
-        resolverCredentialsConfig:
-          username: admin
-          password: password          
+          credentialsId: 'artifactory' 
   location:
     url: http://localhost:8080/
   simple-theme-plugin:
