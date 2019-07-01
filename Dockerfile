@@ -11,9 +11,5 @@ RUN mkdir -p /usr/share/jenkins/ref/secrets && \
     mkdir /usr/share/jenkins/ref/userContent
 
 COPY jenkins.yaml /var/jenkins_home/jenkins.yaml
-#ENV CASC_JENKINS_CONFIG=/var/jenkins_home/config/jenkins.yaml
 
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
-
-#USER root
-#RUN usermod -aG docker jenkins
