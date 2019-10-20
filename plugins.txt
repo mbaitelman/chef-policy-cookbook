@@ -9,4 +9,4 @@ aws-credentials
 junit
 simple-theme-plugin
 matrix-project
-configuration-as-code-support
+job-dsl

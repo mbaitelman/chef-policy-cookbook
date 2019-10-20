@@ -20,6 +20,10 @@ jenkins:
           dockerHost:
             uri: "unix:///var/run/docker.sock"
 
+  crumbIssuer: 
+    standard:
+       excludeClientIPFromCrumb: false            
+
 # security:
 #   remotingCLI:
 #     enabled: false
@@ -34,6 +38,8 @@ credentials:
               username: "admin"
               password: "password"
               description: "Username/Password Credentials for Artifactory"
+#jobs: 
+#  - url: "https://raw.githubusercontent.com/mbaitelman/chef-policy-cookbook/master/jenkins/upload-policyies.groovy"  
 
 unclassified:
   artifactorybuilder:
