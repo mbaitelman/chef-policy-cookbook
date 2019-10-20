@@ -10,3 +10,7 @@ junit
 simple-theme-plugin
 matrix-project
 job-dsl
+timestamper
+ansicolor
+ws-cleanup
+pipeline-utility-steps

@@ -16,6 +16,10 @@ pipeline {
       disableConcurrentBuilds()
     }
 
+    environment{
+        CHEF_LICENSE = 'accept'
+    }
+
     stages {
         stage('checkout') {
             steps {
@@ -24,7 +28,6 @@ pipeline {
         }
         stage('install') {
             steps {
-                sh label: 'Delete lock files if exist', returnStatus: true, script: 'rm policyfiles/*.json'
                 script {
                     for (f in findFiles(glob: 'policyfiles/*.rb')) {
                         sh "chef install ${f}"
@@ -53,7 +56,7 @@ pipeline {
                         "files": [
                             {
                             "pattern": "exportdir/*.tgz",
-                            "target": "/chef/chef-policy-cookbook/${BUILD_NUMBER}/"
+                            "target": "chef/chef-policy-cookbook/${BUILD_NUMBER}/"
                             }
                         ]
                         }"""

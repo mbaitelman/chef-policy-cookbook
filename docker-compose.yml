@@ -7,12 +7,14 @@ services:
         volumes:
             - '/data/docker/jenkins/jenkins_home:/var/jenkins_home'
             - '/etc/timezone:/etc/timezone:ro'
+            - '/usr/bin/docker:/usr/bin/docker' # may need to run `which docker` to get the path
             - '/var/run/docker.sock:/var/run/docker.sock'
         ports:
             - '8080:8080'
             - '50000:50000'
         restart: always
         user: root
+        # privileged: true
         # image: 'jenkins/jenkins:latest'
         # sudo mkdir -p /data/docker/jenkins/jenkins_home
         # sudo chown -R 1000 /data/docker/jenkins/jenkins_home
