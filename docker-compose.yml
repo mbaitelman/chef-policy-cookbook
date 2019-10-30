@@ -14,6 +14,8 @@ services:
             - '50000:50000'
         restart: always
         user: root
+        links:
+        - 'artifactory' 
         # privileged: true
         # image: 'jenkins/jenkins:latest'
         # sudo mkdir -p /data/docker/jenkins/jenkins_home

@@ -46,7 +46,7 @@ unclassified:
     useCredentialsPlugin: true
     artifactoryServers:
       - serverId: artifactory
-        artifactoryUrl: http://localhost:8081/artifactory/
+        artifactoryUrl: http://artifactory:8081/artifactory/
         deployerCredentialsConfig:
           credentialsId: 'artifactory' 
   location:
