@@ -1,0 +1,14 @@
+localRepositories:   #Local repositories configuration
+  chef2:   #The local repository name
+    type: generic   #The package type
+    description: "Hello world"   #A free text field that describes the content and purpose of the repository
+    excludesPattern:  #Provides a way to filter out specific repositories when trying to resolve the location of different artifacts (Ant-like pattern)
+    includesPattern:   #Provides a way to filter out specific repositories when trying to resolve the location of different artifacts (Ant-like pattern)
+    notes: "Hello world 2"   #A free text field to add additional notes about the repository
+    repoLayout: maven-2-default   #Sets the layout that the repository should use for storing and identifying modules. The layout usually varies for the different package types
+    xray:   #Xray settings for the certain repository
+      enabled: false   #Indicated whether the repository will be indexed and scanned by Xray
+    handleReleases: true   #If set, Artifactory allows you to deploy release artifacts into this repository
+    handleSnapshots: true   #If set, Artifactory allows you to deploy snapshot artifacts into this repository
+    downloadRedirect:   #Settings for redirecting download requests for direct download from cloud storage
+      enabled: false   #When true, Artifactory will respond to download requests to this repository with an HTTP 302 redirection return code along with a signed URL directing the calling client to download the requested artifact directly from cloud storage.
