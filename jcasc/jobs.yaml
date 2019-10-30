@@ -1,14 +1,15 @@
-job('UploadPolicies') {
-    scm {
-        git {
-            remote {
-                url('https://github.com/mbaitelman/chef-policy-cookbook.git')
-            }
-            extensions {
-                cleanAfterCheckout()
-                relativeTargetDirectory('repo1')
-            }
-        }
-      scriptPath('jenkins/upload-policyies.groovy')
-    }
-}
+jobs:
+  - script: >
+      pipelineJob('UploadPolicies') {
+          definition {
+              cpsScm {
+                  scriptPath 'jenkins/upload-policyies.groovy'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/mbaitelman/chef-policy-cookbook.git' }
+                        branch 'master'
+                    }
+                  }
+              }
+          }
+      }

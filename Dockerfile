@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.202
+FROM jenkins/jenkins:2.200
 
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 
@@ -10,6 +10,6 @@ RUN mkdir -p /usr/share/jenkins/ref/secrets && \
     # Install a nicer default theme to make it look shiny for non-BlueOcean.
     mkdir /usr/share/jenkins/ref/userContent
 
-COPY jenkins.yaml /var/jenkins_home/jenkins.yaml
+#COPY jenkins.yaml /var/jenkins_home/jenkins.yaml
 
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"

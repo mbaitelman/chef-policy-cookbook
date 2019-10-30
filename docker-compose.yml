@@ -9,13 +9,16 @@ services:
             - '/etc/timezone:/etc/timezone:ro'
             - '/usr/bin/docker:/usr/bin/docker' # may need to run `which docker` to get the path
             - '/var/run/docker.sock:/var/run/docker.sock'
+            - ./jcasc:/var/jenkins_conf
         ports:
             - '8080:8080'
             - '50000:50000'
         restart: always
         user: root
         links:
-        - 'artifactory' 
+        - 'artifactory'
+        environment:
+            - CASC_JENKINS_CONFIG=/var/jenkins_conf 
         # privileged: true
         # image: 'jenkins/jenkins:latest'
         # sudo mkdir -p /data/docker/jenkins/jenkins_home
