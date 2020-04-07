@@ -27,3 +27,17 @@ jobs:
               }
           }
       }      
+  - script: >
+      pipelineJob('TestKitchen') {
+          definition {
+              cpsScm {
+                  scriptPath 'jenkins/test-kitchen.groovy'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/mbaitelman/chef-policy-cookbook.git' }
+                        branch 'master'
+                    }
+                  }
+              }
+          }
+      }      
