@@ -8,19 +8,19 @@ pipeline {
     parameters {
         choice (
             choices: [
-                'qa', 
+                'qa',
                 'stage',
-                'prod', 
-            ], 
-            description: '', 
+                'prod',
+            ],
+            description: '',
             name: 'POLICY_GROUP')
         choice (
             choices: [
                 '',
                 'desktop',
-                'server' 
-            ], 
-            description: '', 
+                'server'
+            ],
+            description: '',
             name: 'POLICY_NAME'
         )
         string defaultValue: '-1', description: '', name: 'BUILD_REVISION', trim: true
@@ -69,18 +69,12 @@ pipeline {
                         }
                     }
                 }
-            }       
+            }
         }
     }
     post {
         always {
             cleanWs()
-        }
-        unsuccessful {
-            slackSend channel: "#chef", color: 'danger', message: "Chef pushing policy for ${params.COOKBOOK} ${params.POLICY_GROUP} ${params.POLICY_NAME} with version ${params.BUILD_REVISION} was unsuccessful. ${getBuildCause()} <${env.BUILD_URL}|View>"
-        }
-        success {
-            slackSend channel: "#chef", color: 'good', message: "Chef pushing policy for ${params.COOKBOOK} ${params.POLICY_GROUP} ${params.POLICY_NAME} with version ${params.BUILD_REVISION} has completed. ${getBuildCause()} <${env.BUILD_URL}|View>"
         }
     }
 
