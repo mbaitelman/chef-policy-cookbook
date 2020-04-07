@@ -13,3 +13,17 @@ jobs:
               }
           }
       }
+  - script: >
+      pipelineJob('PushPolicies') {
+          definition {
+              cpsScm {
+                  scriptPath 'jenkins/push-policyies.groovy'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/mbaitelman/chef-policy-cookbook.git' }
+                        branch 'master'
+                    }
+                  }
+              }
+          }
+      }      
