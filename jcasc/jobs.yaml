@@ -40,4 +40,18 @@ jobs:
                   }
               }
           }
-      }      
+      }
+  - script: >
+      pipelineJob('Chef-CICF') {
+          definition {
+              cpsScm {
+                  scriptPath 'jenkins/chef-cicd.groovy'
+                  scm {
+                    git {
+                        remote { url 'https://github.com/mbaitelman/chef-policy-cookbook.git' }
+                        branch 'master'
+                    }
+                  }
+              }
+          }
+      }
