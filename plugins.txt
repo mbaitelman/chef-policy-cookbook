@@ -14,4 +14,4 @@ timestamper
 ansicolor
 ws-cleanup
 pipeline-utility-steps
-aws-plugin
+pipeline-aws
