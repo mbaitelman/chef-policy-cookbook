@@ -12,3 +12,5 @@ localRepositories:   #Local repositories configuration
     handleSnapshots: true   #If set, Artifactory allows you to deploy snapshot artifacts into this repository
     downloadRedirect:   #Settings for redirecting download requests for direct download from cloud storage
       enabled: false   #When true, Artifactory will respond to download requests to this repository with an HTTP 302 redirection return code along with a signed URL directing the calling client to download the requested artifact directly from cloud storage.
+security:   #Security configuration (LDAP, SAML, Password Policy, ...)
+  anonAccessEnabled: true   #When set, anonymous access will be enabled for the set of permissions assigned to the default "anonymous user"
