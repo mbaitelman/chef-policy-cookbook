@@ -29,10 +29,8 @@ pipeline {
             }
         }
         stage('Checkout Cookbooks'){
-            stage('Checkout prodegechef'){
-                steps{
-                    checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
-                }
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
             }
         }    
         stage("Run Cookstyle"){
