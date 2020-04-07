@@ -11,7 +11,7 @@ pipeline {
 
     parameters {
         string(defaultValue: 'master', description: '', name: 'BRANCH', trim: true)
-        choice choices: ['mbaitelman/chef-policy-cookbook', 'mattray/managed_chef_server-cookbook'], description: '', name: 'COOKBOOK'
+        choice choices: ['mbaitelman/chef-policy-cookbook', 'mattray/managed_automate-cookbook'], description: '', name: 'COOKBOOK'
     }
 
     options {
