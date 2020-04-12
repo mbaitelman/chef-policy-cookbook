@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Push Archive Files') {
             steps {
-                build job: 'PushPolicies', parameters: [string(name: 'POLICY_GROUP', value: 'qa'), string(name: 'POLICY_NAME', value: ''), string(name: 'BUILD_REVISION', value: uploadJobResult.getNumber()), string(name: 'COOKBOOK', value: 'mbaitelman/chef-policy-cookbook')]
+                build job: 'PushPolicies', parameters: [string(name: 'POLICY_GROUP', value: 'qa'), string(name: 'POLICY_NAME', value: ''), string(name: 'BUILD_REVISION', value: uploadJobResult.getNumber().toString()), string(name: 'COOKBOOK', value: 'mbaitelman/chef-policy-cookbook')]
             }
         }
     }
