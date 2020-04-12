@@ -52,7 +52,7 @@ pipeline {
                         """{
                             "files": [
                                 {
-                                    "pattern": "chef_cookbooks/${params.COOKBOOK}/${params.BUILD_REVISION}/${params.POLICY_NAME}*.tgz",
+                                    "pattern": "chef/${params.COOKBOOK}/${params.BUILD_REVISION}/${params.POLICY_NAME}*.tgz",
                                     "target": "archives/"
                                 }
                             ]
