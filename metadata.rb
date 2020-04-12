@@ -7,6 +7,7 @@ version '0.1.0'
 chef_version '>= 13.0'
 
 depends 'windows', '~> 5'
+depends 'nginx', '~> 10.0.0'
 
 issues_url 'https://github.com/mbaitelman/chef-policy-cookbook/issues'
 
