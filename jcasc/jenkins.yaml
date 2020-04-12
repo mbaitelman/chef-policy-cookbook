@@ -55,3 +55,16 @@ unclassified:
     elements:
       - cssUrl:
           url: "https://jenkins-contrib-themes.github.io/jenkins-neo-theme/dist/neo-light.css"
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      implicit: true
+      includeInChangesets: false
+      name: "chef-policy-cookbook-library"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              remote: "https://github.com/mbaitelman/chef-policy-cookbook.git"
+              traits:
+              - "gitBranchDiscovery"       
