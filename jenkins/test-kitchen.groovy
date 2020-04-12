@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'chef/chefworkstation:0.13.26'
+            image 'chef/chefworkstation:0.17.14'
         }
     }
     
