@@ -25,39 +25,45 @@ pipeline {
     stages {
         stage('Checkout Cookbooks'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
+                dir(params.COOKBOOK)[{
+                    checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
+                }
             }
         }    
         stage("Run Cookstyle"){
             steps {
-                sh script: 'cookstyle .', returnStatus: (params.COOKBOOK == 'prodege-base') //prodege-base does not yet follow cookstyle rules
+                dir(params.COOKBOOK)[{ 
+                    sh script: 'cookstyle .', returnStatus: true //Dont yet fail on cookstyle
+                }
             }
         }
         stage("Remove old files"){
             parallel{
                 stage("Remove .kitchen logs"){
                     steps {
-                        sh script: 'rm -r .kitchen/', returnStatus: true
+                        sh script: "rm -r ${params.COOKBOOK}/.kitchen/", returnStatus: true
                     }
                 }
                 stage("Remove old reports"){
                     steps {
-                        sh  script: 'rm -r junit/', returnStatus: true
+                        sh  script: "rm -r ${params.COOKBOOK}/junit/", returnStatus: true
                     }
                 }
             }
         }
         stage("Run Tests"){
             steps {
-                withAWS(credentials: 'aws-test-kitchen') {
-                    sh script: "kitchen test ${params.POLICY_NAME} --destroy always --concurrency 2", returnStatus: true
+                dir(params.COOKBOOK)[{ 
+                    withAWS(credentials: 'aws-test-kitchen') {
+                        sh script: "kitchen test ${params.POLICY_NAME} --destroy always --concurrency 2", returnStatus: true
+                    }
                 }
             }
         }
         stage('Gather Reports'){
             steps{
-                archiveArtifacts "**/.kitchen/logs/*.log"
-                junit "**/junit/*.xml"
+                archiveArtifacts "**/${params.COOKBOOK}/.kitchen/logs/*.log"
+                junit "**/${params.COOKBOOK}/junit/*.xml"
             }
         }        
     }
