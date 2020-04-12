@@ -16,7 +16,7 @@ pipeline {
         stage('Create Policy Archives'){
             steps {
                 script {
-                    def uploadJobResult = build job: 'UploadPolicies', parameters: [string(name: 'BRANCH', value: 'master'), string(name: 'COOKBOOK', value: 'mbaitelman/chef-policy-cookbook')]
+                    uploadJobResult = build job: 'UploadPolicies', parameters: [string(name: 'BRANCH', value: 'master'), string(name: 'COOKBOOK', value: 'mbaitelman/chef-policy-cookbook')]
                 }
             }
         }
