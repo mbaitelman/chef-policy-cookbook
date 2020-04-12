@@ -9,6 +9,11 @@ pipeline {
         pollSCM 'H/5 * * * *'
     }
 
+    parameters {
+        string(defaultValue: 'master', description: '', name: 'BRANCH', trim: true)
+        choice choices: ['mbaitelman/chef-policy-cookbook', 'mattray/managed_automate-cookbook'], description: '', name: 'COOKBOOK'
+    }
+
     options {
       timeout(15)
       timestamps()
@@ -23,7 +28,7 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mbaitelman/chef-policy-cookbook.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
             }
         }
         stage('install') {
@@ -56,7 +61,7 @@ pipeline {
                         "files": [
                             {
                             "pattern": "exportdir/*.tgz",
-                            "target": "chef/chef-policy-cookbook/${BUILD_NUMBER}/"
+                            "target": "chef/${params.COOKBOOK}/${BUILD_NUMBER}/"
                             }
                         ]
                         }"""

@@ -1,0 +1,8 @@
+name: server
+title: Server integration tests
+maintainer: Mendy Baitelman
+license: All rights reserved
+summary: Check that the server is set up correctly
+version: 0.0.1
+supports:
+  - os-family: linux

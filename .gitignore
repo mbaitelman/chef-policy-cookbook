@@ -1,1 +1,4 @@
 /.kitchen/
+inspecreports/**
+policyfiles/*.lock.json
+junit/**
