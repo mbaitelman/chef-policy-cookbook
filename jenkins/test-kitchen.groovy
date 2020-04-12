@@ -25,14 +25,14 @@ pipeline {
     stages {
         stage('Checkout Cookbooks'){
             steps{
-                dir(params.COOKBOOK)[{
+                dir(params.COOKBOOK){
                     checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
                 }
             }
         }    
         stage("Run Cookstyle"){
             steps {
-                dir(params.COOKBOOK)[{ 
+                dir(params.COOKBOOK){ 
                     sh script: 'cookstyle .', returnStatus: true //Dont yet fail on cookstyle
                 }
             }
@@ -53,7 +53,7 @@ pipeline {
         }
         stage("Run Tests"){
             steps {
-                dir(params.COOKBOOK)[{ 
+                dir(params.COOKBOOK){ 
                     withAWS(credentials: 'aws-test-kitchen') {
                         sh script: "kitchen test ${params.POLICY_NAME} --destroy always --concurrency 2", returnStatus: true
                     }
