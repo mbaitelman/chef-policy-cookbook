@@ -1,0 +1,71 @@
+<% require 'date' %>
+---
+driver:
+  name: ec2
+  shared_credentials_profile: 'test-kitchen'
+  region: us-west-2
+  availability_zone: b
+  skip_cost_warning: true #Ignore the fact that this may cost money
+  spot_price: 0.06
+  instance_type: t2.large
+  subnet_id: subnet-0aa69a1ad023bed70 # prdg-qa-usw2-igw-b aws6
+  tags:
+    Name: 'test-kitchen'
+    created-by: 'test-kitchen'
+    created-at: <%= DateTime.now.strftime("%Y/%m/%d %H:%M") %>
+    running-on: <%= Socket.gethostname %>
+provisioner:
+  # product_name: chef
+  # product_version: 14.12.9
+  name: chef_zero
+  log_level: info
+  retry_on_exit_code: [259, 35, 235] # the exit code signaling that the node is rebooting https://kitchen.ci/docs/reference/reboots/
+  wait_for_retry: 30 # adjusting from 100 to 300.
+  max_retries: 3
+  client_rb:
+    exit_status: :enabled # Opt-in to the standardized exit codes
+    client_fork: false  # Forked instances don't return the real exit code
+    chef_license: accept
+verifier:
+  name: inspec
+  reporter:
+    - cli
+    - junit:junit/%{suite}-%{platform}_inspec.xml
+    - html:inspecreports/index.html
+    - json:inspecreports/index.json
+    # - documentation:inspecreports/documentation.txt
+    # - yaml:inspecreports/%{suite}_inspec.yml
+#multiple_converge: 2 # Use this to run converge multiple times
+platforms:
+  - name: windows-2012r2
+    driver:
+      block_device_mappings:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: 60
+          delete_on_termination: true
+    transport:
+      name: winrm
+      elevated: true
+  - name: windows-2016
+    driver:
+      block_device_mappings:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: 50
+          delete_on_termination: true
+    transport:
+      name: winrm
+      elevated: true
+  - name: ubuntu-18.04
+suites:
+  - name: desktop
+    provisioner:
+      policyfile: policyfiles/desktop.rb
+    includes:
+      - ubuntu-18.04
+  - name: server
+    provisioner:
+      policyfile: policyfiles/server.rb
+    includes:
+      - ubuntu-18.04
