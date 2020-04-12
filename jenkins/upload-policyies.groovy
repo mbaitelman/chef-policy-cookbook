@@ -66,7 +66,7 @@ pipeline {
                         """{
                         "files": [
                             {
-                            "pattern": "exportdir/*.tgz",
+                            "pattern": "chef-policy-cookbook/exportdir/*.tgz",
                             "target": "chef/${params.COOKBOOK}/${BUILD_NUMBER}/"
                             }
                         ]
