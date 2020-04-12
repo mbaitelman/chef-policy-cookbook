@@ -79,7 +79,7 @@ pipeline {
         }
         stage('archive'){
             steps{
-                archiveArtifacts 'policyfiles/*lock.json'
+                archiveArtifacts 'chef-policy-cookbook/policyfiles/*lock.json'
             }
         }
     }
