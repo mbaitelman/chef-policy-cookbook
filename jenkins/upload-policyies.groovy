@@ -9,6 +9,11 @@ pipeline {
         pollSCM 'H/5 * * * *'
     }
 
+    parameters {
+        string(defaultValue: 'master', description: '', name: 'BRANCH', trim: true)
+        choice choices: ['mbaitelman/chef-policy-cookbook', 'mattray/managed_automate-cookbook'], description: '', name: 'COOKBOOK'
+    }
+
     options {
       timeout(15)
       timestamps()
@@ -23,14 +28,18 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mbaitelman/chef-policy-cookbook.git']]])
+                dir('chef-policy-cookbook'){
+                    checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
+                }
             }
         }
         stage('install') {
             steps {
                 script {
-                    for (f in findFiles(glob: 'policyfiles/*.rb')) {
-                        sh "chef install ${f}"
+                    dir('chef-policy-cookbook'){
+                        for (f in findFiles(glob: 'policyfiles/*.rb')) {
+                            sh "chef install ${f}"
+                        }
                     }
                 }
                 
@@ -41,8 +50,10 @@ pipeline {
                 sh 'mkdir -p exportdir'
                 
                 script {
-                    for (f in findFiles(glob: 'policyfiles/*.rb')) {
-                        sh "chef export ${f} exportdir --archive"
+                    dir('chef-policy-cookbook'){
+                        for (f in findFiles(glob: 'policyfiles/*.rb')) {
+                            sh "chef export ${f} exportdir --archive"
+                        }
                     }
                 }                
             }
@@ -55,8 +66,8 @@ pipeline {
                         """{
                         "files": [
                             {
-                            "pattern": "exportdir/*.tgz",
-                            "target": "chef/chef-policy-cookbook/${BUILD_NUMBER}/"
+                            "pattern": "chef-policy-cookbook/exportdir/*.tgz",
+                            "target": "chef/${params.COOKBOOK}/${BUILD_NUMBER}/"
                             }
                         ]
                         }"""
@@ -68,7 +79,7 @@ pipeline {
         }
         stage('archive'){
             steps{
-                archiveArtifacts 'policyfiles/*lock.json'
+                archiveArtifacts 'chef-policy-cookbook/policyfiles/*lock.json'
             }
         }
     }

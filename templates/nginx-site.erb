@@ -1,0 +1,14 @@
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name <%=node['hostname']%>;
+	root /opt/server/;
+
+	location ~* \.(?:css|js|map|jpe?g|gif|png)$ { }
+
+	# index.html fallback
+	location / {
+		try_files $uri $uri/ /index.html;
+	}
+}

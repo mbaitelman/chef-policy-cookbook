@@ -1,34 +1,41 @@
-- Find an Ubuntu server (any linux server should do but I like Ubuntu)
-- Install docker. Docs [here](https://docs.docker.com/install/linux/docker-ce/ubuntu/) 
-- Start a Jenkins instance on Docker. [More info here](https://github.com/jenkinsci/docker/) 
-    ```
-    docker run \ --name=jenkins \ --volume="/data/docker/jenkins/jenkins_home:/var/jenkins_home" \ --network=host \ -u root \ -v /etc/timezone:/etc/timezone:ro \ -v /var/run/docker.sock:/var/run/docker.sock \ -v $(which docker):/usr/bin/docker \ -p 8080:8080 \ -p 50000:50000 \ --restart=always \ --detach=true \ jenkins/jenkins:2.177
-    ```
-    Then run 
-    `$ sudo chown -R 1000 /data/docker/jenkins/jenkins_home/`
-    `$ sudo SOMETHING FOR JENKINS DOCKER` #TODO
-- When it runs it will show the initial password, copy that for later
-- Set up Artifactory on Jenkins. [More info here](https://github.com/jfrog/artifactory-docker-examples/tree/master/docker-compose/artifactory)
-    ```
-    docker run --name artifactory -d \ -v /data/docker/jfrog/artifactory:/var/opt/jfrog/artifactory \ -p 8081:8081 \ docker.bintray.io/jfrog/artifactory-oss:latest
-    ```
-    Then run `$ sudo chown -R 1030:1030 /data/docker/jfrog/artifactory/`
-- Now we set up Jenkins
-  - If you forgot the initial password run `$  cat /data/docker/jenkins2/jenkins_home/secrets/initialAdminPassword`
-- Open [http://YOURIP:8080](http://YOURIP:8080)
-- Enter the password when prompted
-- Choose the 'Install community plugins' option. 
-- Create your account
-  - Click Save and continue 
-- Set the URL 
-  - Click save
-- You are done the inital setup of Jenkins. Click 'Start using Jenkins' 
-- Click 'Manage Jenkins'
-- Click into 'Script Console'
-- Run the script from /jenkins/install_plugins.groovy
-- Click 'Manage Jenkins' -> 'Configure System'
-- Go to 'Cloud' -> 'Add a new Cloud'
-  - Name = docker
-  - Host URI = `tcp://YOURSERVERIP:2375`
-  - Enabled = checked off
-  - 
+# Chef Policy Cookbook
+
+## This repo is a fully conttained demo for running CI/CD for Chef
+
+The repo uses a number of tools including Jenkins, AWS, Docker, Test Kitchen, Artifactory and others to enable testing, reviewing, deploying and verifying cookbooks.
+
+### Setup
+
+The setup process relies heavily on configuration as code for Jenkins and Artifactory to make it as smooth as possible
+
+#### System Requirements
+
+- Linux server (This has been tested with Ububtu 18.04)
+  - SSH access
+  - Ability to reach ports :8080, :8081, :8082
+- AWS Account
+  - AWS secret & access key
+- Chef Server (Tested with Hosted Chef)
+
+#### Installation
+
+- SSH into the server
+- Clone the cookbook `git clone https://github.com/mbaitelman/chef-policy-cookbook.git`
+- Move into the cookbook directory `cd chef-policy-cookbook`
+- Run `chmod u+x scripts/*` to make the scripts executable
+- Run `./scripts/setup1.sh` to install the preruqueistes
+- Logout and then back into the server
+- Move back into the cookbook directory `cd chef-policy-cookbook`
+- Run `./scripts/setup2.sh` to complete the setup
+
+##### Manal Steps (For Now)
+
+- Login to the Jenkins server running on :8080 of your instance
+- Navigate to JENKINSURL:8080/credentials/
+- Update the values in the `aws-test-kitchen` credential with your own
+- Update the file in
+
+#### Notes
+
+1 This is a demo and as such takes some leeway on security steps. If you are planning to use this for any extended amount of time please change the passwords for [Artifactory](https://www.jfrog.com/confluence/display/JFROG/User+Profile) and Jenkins (navigate to JENKINSURL:8080/user/admin/ and click configure to set password).
+If doing so note that you will have to make these changes permanent so that JCASC/Artifacatiry does not reset it.
