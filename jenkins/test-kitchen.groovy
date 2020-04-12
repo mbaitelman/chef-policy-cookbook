@@ -23,11 +23,6 @@ pipeline {
 	}
 
     stages {
-        stage ('Notify Build Start'){
-            steps {
-                slackSend channel: 'chef', color: '#3344FF', message: "*${JOB_NAME}* has started. <${env.BUILD_URL}|View>"                
-            }
-        }
         stage('Checkout Cookbooks'){
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
