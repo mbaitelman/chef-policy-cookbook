@@ -42,7 +42,7 @@ jobs:
           }
       }
   - script: >
-      pipelineJob('Chef-CICF') {
+      pipelineJob('Chef-CICD') {
           definition {
               cpsScm {
                   scriptPath 'jenkins/chef-cicd.groovy'

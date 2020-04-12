@@ -28,14 +28,18 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
+                dir('chef-policy-cookbook'){
+                    checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "https://github.com/${params.COOKBOOK}.git"]]])
+                }
             }
         }
         stage('install') {
             steps {
                 script {
-                    for (f in findFiles(glob: 'policyfiles/*.rb')) {
-                        sh "chef install ${f}"
+                    dir('chef-policy-cookbook'){
+                        for (f in findFiles(glob: 'policyfiles/*.rb')) {
+                            sh "chef install ${f}"
+                        }
                     }
                 }
                 
@@ -46,8 +50,10 @@ pipeline {
                 sh 'mkdir -p exportdir'
                 
                 script {
-                    for (f in findFiles(glob: 'policyfiles/*.rb')) {
-                        sh "chef export ${f} exportdir --archive"
+                    dir('chef-policy-cookbook'){
+                        for (f in findFiles(glob: 'policyfiles/*.rb')) {
+                            sh "chef export ${f} exportdir --archive"
+                        }
                     }
                 }                
             }
