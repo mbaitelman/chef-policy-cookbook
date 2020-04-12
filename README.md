@@ -1,6 +1,6 @@
 # Chef Policy Cookbook
 
-## This repo is a fully conttained demo for running CI/CD for Chef
+## This repo is a fully contained demo for running CI/CD for Chef
 
 The repo uses a number of tools including Jenkins, AWS, Docker, Test Kitchen, Artifactory and others to enable testing, reviewing, deploying and verifying cookbooks.
 
