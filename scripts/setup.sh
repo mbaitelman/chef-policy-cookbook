@@ -26,9 +26,10 @@ sudo chown -R 1000 /data/docker/jenkins/jenkins_home
 sudo mkdir -p /data/docker/artifactory/
 sudo chown -R 1030:1030 /data/docker/artifactory/
 
-newgrp docker 
-
+/usr/bin/newgrp docker <<EONG
 docker-compose up -d
+EONG
+
 sleep 40
 # Update artifactory 
 curl -uadmin:password -X PATCH "http://localhost:8081/artifactory/api/system/configuration" -H "Content-Type:application/yaml" -T artifactory/configuration.yml
