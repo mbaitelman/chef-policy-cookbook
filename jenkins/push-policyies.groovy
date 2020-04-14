@@ -34,6 +34,10 @@ pipeline {
       disableConcurrentBuilds()
     }
 
+    environment {
+		CHEF_LICENSE = 'accept'
+	}
+
     stages {
         stage('validate'){
             steps{
