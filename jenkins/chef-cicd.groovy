@@ -7,6 +7,10 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
     }
 
+    triggers {
+        pollSCM 'H/5 * * * *'
+    }
+
     stages {
         stage('Run TestKitchen') {
             steps {

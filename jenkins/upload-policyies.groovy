@@ -5,10 +5,6 @@ pipeline {
         }
     }
 
-    triggers {
-        pollSCM 'H/5 * * * *'
-    }
-
     parameters {
         string(defaultValue: 'master', description: '', name: 'BRANCH', trim: true)
         choice choices: ['mbaitelman/chef-policy-cookbook', 'mattray/managed_automate-cookbook'], description: '', name: 'COOKBOOK'

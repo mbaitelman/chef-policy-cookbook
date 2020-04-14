@@ -69,7 +69,7 @@ pipeline {
                 withCredentials([file(credentialsId: 'chef-private.pem', variable: 'PRIVATEPEM'), file(credentialsId: 'knife.rb', variable: 'KNIFERB')]) {
                     script {
                         for (f in findFiles(glob: "archives/${params.COOKBOOK}/${params.BUILD_REVISION}/${params.POLICY_NAME}*.tgz")) {
-                            sh "chef push-archive ${POLICY_GROUP} ${f} --config ${KNIFERB}"
+                            sh "chef push-archive ${params.POLICY_GROUP} ${f} --config ${KNIFERB}"
                         }
                     }
                 }
