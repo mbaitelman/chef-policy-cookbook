@@ -41,7 +41,7 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 
 ### What is Happening?
 
-#### What is Happening? - Installation
+#### What is Happening? : Installation
 
 The installation steps are scripted to allow for anyone to start up this project.
 In [setup1.sh](/scripts/setup1.sh) we run OS level updaes for security and install [Docker](https://www.docker.com/).
@@ -56,25 +56,33 @@ The files setup an admin user, connections to Artifactory and the Docker host an
 Once the docker-compose step is complete we call the Artifactory API with a [settings file](artifactory/configuration.yml) to create a repository for our Chef policy archives.
 The rest of the manual steps handle secrets that can not be stored in this repository.
 
-#### What is Happening? - Jobs
+#### What is Happening? : Jobs
 
 ##### TestKitchen Job
 
 The Test-Kitchen job is triggered by updates to the reposiotry but can also be triggered manually.
 When called it creates a docker container using [Chef Workstation](https://www.chef.sh/) and checks out the respository into it.
 It then runs [cookstyle](https://github.com/chef/cookstyle) and prepares for the tests.
-Using the AWS plugin we add our AWS credentials and call test-kitchen to test & verify our code. 
+Using the AWS plugin we add our AWS credentials and call test-kitchen to test & verify our code.
 Once complete we ingest the results and pass/fail the job depending on if all the checks pass.
 
 ##### UploadPolicies Job
 
 This job also uses the Chef Workstation container.
-It checks out the code then loops over all files in the policyfiles folder
+It checks out the code then loops over all files in the policyfiles folder to run `chef install` on each to create a policy lock file.
+It then runs `chef export` on each to create a policyfile archive which is a tarball of the policy, cookbook and all dependent cookbooks.
+Then that tarball gets uploaded into Artifactory for use later.
+
+##### PushPolicies Job
+
+This job also uses the Chef Workstation container.
+Using the parameters passed in it pulls down the requested policy archive files from Artifactory and calls `chef push-archive` for the appropriate policy group.
+To authenticate to the chef server we temporarily write the knife.rb and private.pem files to disk and store the paths as envoirment variables.
+
 
 ##### Chef-CICD Job
 
 The C
-
 
 #### Notes
 
