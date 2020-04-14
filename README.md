@@ -78,7 +78,7 @@ Then that tarball gets uploaded into Artifactory for use later.
 This job also uses the Chef Workstation container.
 Using the parameters passed in it pulls down the requested policy archive files from Artifactory and calls `chef push-archive` for the appropriate policy group.
 To authenticate to the chef server we temporarily write the knife.rb and private.pem files to disk and store the paths as envoirment variables.
-
+The path to the knife.rb is set with `--config` and the knife.rb file pulls the cert path from the envoirment variable.
 
 ##### Chef-CICD Job
 
