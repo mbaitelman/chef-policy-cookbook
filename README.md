@@ -12,7 +12,7 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 
 - Linux server (This has been tested with Ubuntu 18.04)
   - SSH access
-  - Ability to reach ports :8080, :8081, :8082
+  - Ability to reach ports :22 :8080, :8081, :8082
 - AWS Account
   - AWS secret & access key
 - Chef Server (Tested with Hosted Chef)
