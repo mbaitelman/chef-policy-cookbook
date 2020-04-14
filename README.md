@@ -24,11 +24,7 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 - Clone the cookbook `git clone https://github.com/mbaitelman/chef-policy-cookbook.git`
 - Move into the cookbook directory `cd chef-policy-cookbook`
 - Run `chmod u+x scripts/*` to make the scripts executable
-- Run `./scripts/setup1.sh` to install the prerequisites
-- Logout and then back into the server
-- Move back into the cookbook directory `cd chef-policy-cookbook`
-- Run `./scripts/setup2.sh` to complete the setup
-- Click into the Chef-CICD Jenkins job and click Build Now
+- Run `./scripts/setup.sh` to install the prerequisites
 
 ##### Manual Steps (For Now)
 
@@ -38,6 +34,7 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 - Click into the `private.pem` and update with your USERNAME.pem file
 - Modify your `knife.rb` file to match the [example](/jcasc/files/knife.md)
 - Click into the `knife.rb` and update it with your knife.rb file
+- Open JENKINSURL:8080, log in and click into the Chef-CICD Jenkins job and click Build Now
 
 ### What is Happening?
 
