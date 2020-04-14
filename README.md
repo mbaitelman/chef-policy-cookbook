@@ -23,7 +23,7 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 - SSH into the server
 - Clone the cookbook `git clone https://github.com/mbaitelman/chef-policy-cookbook.git`
 - Move into the cookbook directory `cd chef-policy-cookbook`
-- Run `chmod u+x scripts/*` to make the scripts executable
+- Run `chmod u+x scripts/setup.sh` to make the script executable
 - Run `./scripts/setup.sh` to install the prerequisites
 
 ##### Manual Steps (For Now)
