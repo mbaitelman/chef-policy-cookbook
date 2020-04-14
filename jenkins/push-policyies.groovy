@@ -62,7 +62,7 @@ pipeline {
         }
         stage('Push Archive') {
             steps {
-                withCredentials([file(credentialsId: 'opsworks.pem', variable: 'OPSWORKSPEM'), file(credentialsId: 'chef-prodege.pem', variable: 'PRIVATEPEM'), file(credentialsId: 'knife.rb', variable: 'KNIFERB')]) {
+                withCredentials([file(credentialsId: 'chef-private.pem', variable: 'PRIVATEPEM'), file(credentialsId: 'knife.rb', variable: 'KNIFERB')]) {
                     script {
                         for (f in findFiles(glob: "archives/${params.COOKBOOK}/${params.BUILD_REVISION}/${params.POLICY_NAME}*.tgz")) {
                             sh "chef push-archive ${POLICY_GROUP} ${f} --config ${KNIFERB}"
