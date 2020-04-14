@@ -30,7 +30,7 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 - Run `./scripts/setup2.sh` to complete the setup
 - Click into the Chef-CICD Jenkins job and click Build Now
 
-##### Manal Steps (For Now)
+##### Manual Steps (For Now)
 
 - Log in to the Jenkins server running on :8080 of your instance
 - Navigate to JENKINSURL:8080/credentials/
@@ -88,4 +88,4 @@ It calls the TestKitchen job to test the code, then uses UploadPolicies to save 
 #### Notes
 
 1 This is a demo and as such takes some leeway on security steps. If you are planning to use this for any extended amount of time please change the passwords for [Artifactory](https://www.jfrog.com/confluence/display/JFROG/User+Profile) and Jenkins (navigate to JENKINSURL:8080/user/admin/ and click configure to set the password).
-If doing so note that you will have to make these changes permanent so that JCASC/Artifacatiry does not reset it.
+If doing so note that you will have to make these changes permanent so that JCASC/Artifactory does not reset it.
