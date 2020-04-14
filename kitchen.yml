@@ -8,6 +8,7 @@ driver:
   skip_cost_warning: true #Ignore the fact that this may cost money
   spot_price: 0.06
   instance_type: t2.large
+  subnet_id: subnet-0aa69a1ad023bed70 # prdg-qa-usw2-igw-b aws6
   tags:
     Name: 'test-kitchen'
     created-by: 'test-kitchen'
