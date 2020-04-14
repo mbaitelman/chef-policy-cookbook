@@ -83,7 +83,7 @@ The path to the knife.rb is set with `--config` and the knife.rb file pulls the 
 ##### Chef-CICD Job
 
 This is a wrapper job that lets you trigger the above jobs together.
-It calls the TestKitchen job to test the code, then uses UploadPolicies to save a copy of this policyfile in Artifactorey and then PushPolicies pushes it to the Chef Server.
+It calls the TestKitchen job to test the code, then uses UploadPolicies to save a copy of this policyfile in Artifactorey and then PushPolicies pushes it to the Chef Server for the qa policy group.
 
 #### Notes
 
