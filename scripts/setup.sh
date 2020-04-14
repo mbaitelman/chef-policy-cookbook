@@ -21,15 +21,17 @@ sudo apt-get install docker-ce -y
 sudo usermod -aG docker ubuntu
 sudo usermod -aG docker jenkins
 
+#create directories 
 sudo mkdir -p /data/docker/jenkins/jenkins_home
 sudo chown -R 1000 /data/docker/jenkins/jenkins_home
 sudo mkdir -p /data/docker/artifactory/
 sudo chown -R 1030:1030 /data/docker/artifactory/
 
+#Use new group
 /usr/bin/newgrp docker <<EONG
 docker-compose up -d
 EONG
 
-sleep 40
-# Update artifactory 
+# Wait for api to be available
+timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8081)" != "200" ]]; do sleep 5; done' || false# Update artifactory 
 curl -uadmin:password -X PATCH "http://localhost:8081/artifactory/api/system/configuration" -H "Content-Type:application/yaml" -T artifactory/configuration.yml
