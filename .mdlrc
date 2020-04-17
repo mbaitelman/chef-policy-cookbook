@@ -1,2 +1,2 @@
-rule "~MD013"
-rule "~MD026"
+rules "~MD013"
+rules "~MD026"
