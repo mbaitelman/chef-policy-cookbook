@@ -41,10 +41,9 @@ The setup process relies heavily on configuration as code for Jenkins and Artifa
 #### What is Happening? : Installation
 
 The installation steps are scripted to allow for anyone to start up this project.
-In [setup1.sh](/scripts/setup1.sh) we run OS-level updates for security and install [Docker](https://www.docker.com/).
+In [setup.sh](/scripts/setup.sh) we run OS-level updates for security and install [Docker](https://www.docker.com/).
 It also creates folders for the docker containers we are going to create.
-
-The next script [setup2.sh](/scripts/setup2.sh) calls [docker-compose](https://docs.docker.com/compose/) to create the containers from the [docker-compose.yml](docker-compose.yml) file.
+It then calls [docker-compose](https://docs.docker.com/compose/) to create the containers from the [docker-compose.yml](docker-compose.yml) file.
 It creates an [Artifactory](https://jfrog.com/artifactory/) instance using the OSS version of the container.
 The Jenkins container we are going to use is custom to allow us to add settings and files, it gets its instructions from a [dockerfile](https://docs.docker.com/engine/reference/builder/).
 Our [Dockerfile](Dockerfile) extends the default Jenkins container with a list of required plugins and other settings.
