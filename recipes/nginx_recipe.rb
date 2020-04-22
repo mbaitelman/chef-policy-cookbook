@@ -14,7 +14,7 @@ directory '/opt/server/' do
 end
 
 file '/opt/server/index.html' do
-  content 'Hello world!'
+  content 'Hello Chef Friends!'
   owner 'root'
   group 'root'
   mode '0755'
