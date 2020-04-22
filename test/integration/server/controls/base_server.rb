@@ -15,7 +15,7 @@ control 'nginx-setup' do
 
   describe http('http://localhost') do
     its('status') { should cmp 200 }
-    its('body') { should cmp 'Hello world!' }
+    its('body') { should cmp 'Hello Chef Friends!' }
     # its('headers.Content-Type') { should cmp 'text/html' }
   end
 end
