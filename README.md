@@ -4,6 +4,10 @@
 
 The repo uses several tools including Jenkins, AWS, Docker, Test Kitchen, Artifactory and others to enable testing, reviewing, deploying and verifying cookbooks.
 
+## Video
+
+This repo was used for a Chef Meetup, you can watch it on [YouTube here](https://youtu.be/8-HkLuS-f0s)
+
 ### Setup
 
 The setup process relies heavily on configuration as code for Jenkins and Artifactory to make it as smooth as possible
